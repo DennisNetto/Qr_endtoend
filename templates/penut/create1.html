@@ -1,0 +1,15 @@
+{% extends 'penut/base.html' %}
+
+{% block title %}Create new entry{% endblock %}
+
+{% block content %}
+Create entry
+<form method="post" action="/create1/">
+    {% csrf_token %}
+    {{form.as_ul}}
+    <button type="submit", name="save">create new</button>
+</form>
+
+
+{% endblock %}
+
