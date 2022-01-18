@@ -15,12 +15,10 @@ def cryupt(a, b, c, d):
     encoded = jwt.encode({"id_number": a, "First_name": b, "Last_name": c, "DOB": d}, secret, algorithm="HS256")
 
     # Creates a temperary directory to handle the function then creates pems for encrtption and decrytion
-    directoryname = "tmp" + a
-    f1 = "./"
-    path = os.path.join(f1, directoryname)
-    os.mkdir(path)
-    w3 = (directoryname + "/" + a + "private.pem")
-    w4 = (directoryname + "/" + a + "receiver.pem")
+
+
+    w3 = (a + "private.pem")
+    w4 = (a + "receiver.pem")
     key = RSA.generate(2048)
     private_key = key.export_key()
     file_out = open(w3, "wb")
@@ -61,7 +59,7 @@ def cryupt(a, b, c, d):
     result = result + h
     print(result)
     qr = qrcode.make(result)
-    qr.save(directoryname + "/" + a + 'qr.png')
+    qr.save(a + 'qr.png')
     os.remove(a + "encrypted_data.bin")
 
 

@@ -17,7 +17,8 @@ def qrpic(b):
     cursor = mydb.cursor()
 
     # Prepare the query
-    query = 'SELECT QR FROM penut_tokenstorage WHERE id_number=27461501745267184763129482'
+    query = 'SELECT QR FROM penut_tokenstorage WHERE id_number= '
+    query = query + b
 
     # Execute the query to get the file
     cursor.execute(query)
@@ -35,6 +36,6 @@ def qrpic(b):
 
     # Display the image
     b = str(b)
-    image.save(b + ".jpeg")
+    image.save(b + ".jpg")
 
 

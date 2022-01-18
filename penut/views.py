@@ -66,7 +66,7 @@ def create1(response):
             fname = form.cleaned_data["First_name"]
             lname = form.cleaned_data["Last_name"]
             edob = form.cleaned_data["DOB"]
-            a = "./tmp" + num
+
             qry = HumanStorage.objects.get(id_number=num)
             qfn = qry.First_name
             qln = qry.Last_name
@@ -76,7 +76,8 @@ def create1(response):
                 try:
                     TokenStorage.objects.get(id_number=num)
                     qrpic(num)
-                    with open(r'C:\Users\Maker\Desktop\djangoProject\27461501745267184763129482.jpeg', "rb") as f:
+                    qrto = num + ".jpg"
+                    with open(qrto, "rb") as f:
                         return HttpResponse(f.read(), content_type="image/png")
                 except TokenStorage.DoesNotExist:
                     hash = hashlib.sha256()
@@ -85,21 +86,25 @@ def create1(response):
                     hash1 = (hash.hexdigest())
                     h = str(hash1)
                     cryupt(num, fname, lname, edob)
-                    with open(r"C:\Users\Maker\Desktop\djangoProject\tmp27461501745267184763129482\2746150174526"
-                              r"7184763129482private.pem", "rb") as File:
+                    dirtt = num + "private.pem"
+                    with open(dirtt, "rb") as File:
                         pkey = File.read()
 
-                        file = open(r"C:\Users\Maker\Desktop\djangoProject\tmp27461501745267184763129482\2746150174526"
-                                    r"7184763129482qr.png", 'rb').read()
+                        dirttt = num + "qr.png"
+
+                        file = open(dirttt, 'rb').read()
                         qrcode = base64.b64encode(file)
 
                     if fname == qfn and lname == qln and edob == qdb:
                         t = TokenStorage(id_number=num, hash=h, privatekey=pkey, QR=qrcode, Qr_Issued='True')
                         t.save()
-                        removedir(a)
+                        removefile(num + "qr.png")
+                        removefile(num + "private.pem")
+                        removefile(num + "receiver.pem")
                         qrpic(num)
-                        with open(r'C:\Users\Maker\Desktop\djangoProject\27461501745267184763129482.jpeg', "rb") as f:
+                        with open(num + ".jpg", "rb") as f:
                             return HttpResponse(f.read(), content_type="image/png")
+                        # Need to delete the picture generated
     else:
         form = CreateNewQR()
     return render(response, "penut/create1.html", {"form": form})
