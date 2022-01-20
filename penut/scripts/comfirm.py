@@ -3,7 +3,9 @@ import mysql.connector
 
 def conff(a):
     try:
-        mydb = mysql.connector.connect(host="localhost", user="root", password="password", database="tnstorage")
+
+        mydb = mysql.connector.connect(host="database-1.cbbbmqyvzgqg.us-east-2.rds.amazonaws.com", user="admin",
+                                       password="EvDRgjT3imys6i3", database="tnstorage")
 
         mycurser = mydb.cursor()
         w = "select id_number, First_name, Last_name, DOB from penut_humanstorage where id_number = "

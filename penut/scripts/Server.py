@@ -1,5 +1,6 @@
 import socket
 import threading
+from tojwt import check
 
 HEADER = 2500
 PORT = 5050
@@ -20,9 +21,11 @@ def handle_client(conn, addr):
         msg = conn.recv(HEADER).decode(FORMAT)
         if msg:
             msg = str(msg)
+            retun = check(msg)
+            retun = str(retun)
 
             print(f"[{addr}] {msg}")
-            conn.send("Msg received".encode(FORMAT))
+            conn.send(retun.encode(FORMAT))
             connected = False
 
     conn.close()

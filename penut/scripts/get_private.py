@@ -4,12 +4,9 @@ def pri(b):
     import base64
 
     # Create a connection
-    mydb = mysql.connector.connect(
-        host="localhost",
-        user="root",
-        password='password',
-        database="tnstorage"  # Name of the database
-    )
+
+    mydb = mysql.connector.connect(host="database-1.cbbbmqyvzgqg.us-east-2.rds.amazonaws.com", user="admin",
+                                   password="EvDRgjT3imys6i3", database="tnstorage")
 
     # Create a cursor object
     cursor = mydb.cursor()
