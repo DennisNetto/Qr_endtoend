@@ -88,7 +88,7 @@ def create1(response):
                     cryupt(num, fname, lname, edob)
                     dirtt = num + "private.pem"
                     with open(dirtt, "rb") as File:
-                        pkey = File.read()
+                        pkey = base64.b64encode(File.read())
 
                         dirttt = num + "qr.png"
 

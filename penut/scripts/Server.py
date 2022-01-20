@@ -1,7 +1,7 @@
 import socket
 import threading
 
-HEADER = 64
+HEADER = 2500
 PORT = 5050
 SERVER = "0.0.0.0"
 ADDR = (SERVER, PORT)
@@ -40,3 +40,4 @@ def start():
 
 print("[STARTING] server is starting...")
 start()
+
