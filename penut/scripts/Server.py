@@ -1,8 +1,9 @@
 import socket
 import threading
 from tojwt import check
+from test11 import rsa_encrypt
 
-HEADER = 2500
+HEADER = 5000
 PORT = 5050
 SERVER = "0.0.0.0"
 ADDR = (SERVER, PORT)
@@ -20,12 +21,16 @@ def handle_client(conn, addr):
     while connected:
         msg = conn.recv(HEADER).decode(FORMAT)
         if msg:
+            pubkey = conn.recv(HEADER).decode(FORMAT)
             msg = str(msg)
+            pubkey = str(pubkey)
             retun = check(msg)
             retun = str(retun)
-
-            print(f"[{addr}] {msg}")
+            pubkey = str(pubkey)
+            encrypted = rsa_encrypt(pubkey, retun)
+            retun = str(encrypted)
             conn.send(retun.encode(FORMAT))
+            print("Message returned")
             connected = False
 
     conn.close()
@@ -43,4 +48,3 @@ def start():
 
 print("[STARTING] server is starting...")
 start()
-
